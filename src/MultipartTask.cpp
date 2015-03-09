@@ -3,7 +3,7 @@
 
 namespace csm {
 	MultipartTask::MultipartTask(std::string name, std::vector<std::shared_ptr<Task>> const& subTasks)
-		: name(name), subTasks(subTasks) {
+		: Task(name), subTasks(subTasks) {
 	}
 
 	MultipartTask::~MultipartTask() {
