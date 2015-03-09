@@ -21,13 +21,10 @@ namespace csm {
 	protected:
 		virtual void findNextState(long long step);
 
-		struct StateData {
-			std::vector<std::pair<std::shared_ptr<Condition>, std::shared_ptr<State>>> conditionToStateList;
-		};
-		std::unordered_map<std::shared_ptr<State>, std::shared_ptr<StateData>> allStates;
-		std::shared_ptr<StateData> fromAny;
-
+		std::vector<std::shared_ptr<State>> allStates;
 		std::shared_ptr<State> state;
+
+		std::unordered_map<std::shared_ptr<Condition>, std::shared_ptr<State>> fromAny;
 	};
 }
 

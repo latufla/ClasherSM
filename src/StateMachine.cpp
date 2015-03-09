@@ -3,7 +3,6 @@
 
 namespace csm {
 	StateMachine::StateMachine() {
-		fromAny = std::make_shared<StateData>();
 	}
 
 
@@ -11,31 +10,26 @@ namespace csm {
 	}
 
 	void StateMachine::add(std::shared_ptr<State> state) {
-		auto data = std::make_shared<StateData>();
-		allStates.emplace(state, data);
+		allStates.push_back(state);
 	}
 
 	void StateMachine::from(std::shared_ptr<State> state, std::shared_ptr<Condition> withCondition, std::shared_ptr<State> toState) {
-		auto data = allStates.at(state);
-		data->conditionToStateList.push_back({withCondition, toState});
+		state->link(withCondition, toState);
 	}
-
-
+	
 	void StateMachine::addFromAny(std::shared_ptr<Condition> withCondition, std::shared_ptr<State> toState) {
 		add(toState);
-		fromAny->conditionToStateList.push_back({withCondition, toState});
+		fromAny.emplace(withCondition, toState);
 	}
 
 
 	void StateMachine::process(long long step) {
-		if(fromAny) {
-			for(auto i : fromAny->conditionToStateList) {
-				auto condition = i.first;
-				auto toState = i.second;
-				if(condition->process(step)) {
-					state = toState;
-					break;
-				}
+		for(auto i : fromAny) {
+			auto condition = i.first;
+			auto toState = i.second;
+			if(condition->process(step)) {
+				state = toState;
+				break;
 			}
 		}
 		findNextState(step);
@@ -43,8 +37,8 @@ namespace csm {
 	}
 
 	void StateMachine::findNextState(long long step) {
-		auto stateData = allStates.at(state);
-		for(auto i : stateData->conditionToStateList) {
+		auto links = state->getLinks();
+		for(auto i : links) {
 			auto condition = i.first;
 			auto toState = i.second;
 			if(condition->process(step)) {

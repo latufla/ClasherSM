@@ -21,8 +21,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	sm.add(disappearing);
 
 	auto ifRetreatSuccess = std::make_shared<csm::Condition>();
-	sm.from(retreating, ifRetreatSuccess, disappearing);
-	
+	sm.from(retreating, ifRetreatSuccess, disappearing);	
 
 	auto death = std::make_shared<csm::Task>("death");
 	auto dying = std::make_shared<csm::State>("dying", death);
