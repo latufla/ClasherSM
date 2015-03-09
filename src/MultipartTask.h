@@ -7,7 +7,7 @@
 namespace csm {
 	class MultipartTask : public Task{
 	public:
-		MultipartTask(std::string name, std::vector<std::shared_ptr<Task>> const& subTasks);
+		MultipartTask(std::string name, std::shared_ptr<TaskBlackboard> blackboard, std::vector<std::shared_ptr<Task>> const& subTasks);
 		virtual ~MultipartTask();
 	
 		virtual bool process(long long step) override;

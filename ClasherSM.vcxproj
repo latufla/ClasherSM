@@ -86,6 +86,7 @@
     <ClInclude Include="src\StateMachine.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="src\TaskBlackboard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Condition.cpp" />
@@ -95,6 +96,7 @@
     <ClCompile Include="ClasherSM.cpp" />
     <ClCompile Include="src\StateMachine.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="src\TaskBlackboard.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

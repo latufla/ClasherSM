@@ -7,6 +7,7 @@
 #include "src\Task.h"
 #include "src\MultipartTask.h"
 #include <vector>
+#include "src\TaskBlackboard.h"
 
 // TODO: Factory
 std::shared_ptr<csm::MultipartTask> createRetreat();
@@ -43,20 +44,23 @@ int _tmain(int argc, _TCHAR* argv[])
 }
 
 std::shared_ptr<csm::MultipartTask> createRetreat() {
-	auto searchTarget = std::make_shared<csm::Task>("searchTarget");
-	auto searchPath = std::make_shared<csm::Task>("searchPath");
-	auto moveByPath = std::make_shared<csm::Task>("moveByPath");
+	auto blackboard = std::make_shared<csm::TaskBlackboard>();
+	auto searchTarget = std::make_shared<csm::Task>("searchTarget", blackboard);
+	auto searchPath = std::make_shared<csm::Task>("searchPath", blackboard);
+	auto moveByPath = std::make_shared<csm::Task>("moveByPath", blackboard);
 	std::vector<std::shared_ptr<csm::Task>> subTasks{searchTarget, searchPath, moveByPath};
-	auto res = std::make_shared<csm::MultipartTask>("retreat", subTasks);
+	auto res = std::make_shared<csm::MultipartTask>("retreat", blackboard, subTasks);
 	return res;
 }
 
 std::shared_ptr<csm::Task> createDissapear() {
-	auto res = std::make_shared<csm::Task>("disappear");
+	auto blackboard = std::make_shared<csm::TaskBlackboard>();
+	auto res = std::make_shared<csm::Task>("disappear", blackboard);
 	return res;
 }
 
-std::shared_ptr<csm::Task> createDeath(){
-	auto res = std::make_shared<csm::Task>("death");
+std::shared_ptr<csm::Task> createDeath() {
+	auto blackboard = std::make_shared<csm::TaskBlackboard>();
+	auto res = std::make_shared<csm::Task>("death", blackboard);
 	return res;
 }

@@ -2,8 +2,8 @@
 
 
 namespace csm {
-	Task::Task(std::string name) 
-		: name(name) {
+	Task::Task(std::string name, std::shared_ptr<TaskBlackboard> blackboard)
+		: name(name), blackboard(blackboard) {
 	}
 
 	Task::~Task() {
