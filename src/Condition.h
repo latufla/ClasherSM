@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <memory>
+#include "TaskBlackboard.h"
 
 namespace csm {
 	class Condition {
@@ -7,7 +9,7 @@ namespace csm {
 		Condition();
 		virtual ~Condition();
 	
-		virtual bool process(long long step);
+		virtual bool process(std::shared_ptr<TaskBlackboard> blackboard, long long step);
 	protected:
 		std::string name = "condition";
 	};

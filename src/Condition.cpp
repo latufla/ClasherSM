@@ -9,7 +9,7 @@ namespace csm {
 	Condition::~Condition() {
 	}
 
-	bool Condition::process(long long step) {
+	bool Condition::process(std::shared_ptr<TaskBlackboard> blackboard, long long step) {
 		return step;
 	}
 }

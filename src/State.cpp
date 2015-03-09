@@ -17,4 +17,15 @@ namespace csm {
 		links.emplace(withCondition, toState);
 	}
 
+	std::shared_ptr<TaskBlackboard> State::getBlackboard() {
+		return task->getBlackboard();
+	}
+
+	State::ConditionToStateMap const& State::getLinks() const {
+		return links;
+	}
+
+	void State::clear() {
+		getBlackboard()->clear();
+	}
 }

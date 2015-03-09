@@ -11,6 +11,8 @@ namespace csm {
 
 		virtual bool process(long long step);
 
+		virtual std::shared_ptr<TaskBlackboard> getBlackboard() const;
+
 	protected:
 		std::string name;
 

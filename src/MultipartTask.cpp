@@ -9,12 +9,14 @@ namespace csm {
 	MultipartTask::~MultipartTask() {
 	}
 
+	// Liski dying
 	bool MultipartTask::process(long long step) {
 		bool res = true;
 		for(auto i : subTasks) {
 			bool subRes = i->process(step);
 			res = res && subRes;
 		}
+		blackboard->setSuccess(res);
 		return res;
 	}
 }

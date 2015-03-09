@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IfSuccess.h" />
     <ClInclude Include="src\Condition.h" />
     <ClInclude Include="src\MultipartTask.h" />
     <ClInclude Include="src\State.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="src\TaskBlackboard.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IfSuccess.cpp" />
     <ClCompile Include="src\Condition.cpp" />
     <ClCompile Include="src\MultipartTask.cpp" />
     <ClCompile Include="src\State.cpp" />

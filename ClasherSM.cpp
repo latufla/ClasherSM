@@ -8,6 +8,7 @@
 #include "src\MultipartTask.h"
 #include <vector>
 #include "src\TaskBlackboard.h"
+#include "IfSuccess.h"
 
 // TODO: Factory
 std::shared_ptr<csm::MultipartTask> createRetreat();
@@ -27,13 +28,13 @@ int _tmain(int argc, _TCHAR* argv[])
 	auto disappearing = std::make_shared<csm::State>("disappearing", disappear);
 	sm.add(disappearing);
 
-	auto ifRetreatSuccess = std::make_shared<csm::Condition>();
+	auto ifRetreatSuccess = std::make_shared<csm::IfSuccess>();
 	sm.from(retreating, ifRetreatSuccess, disappearing);	
 
 	auto death = createDeath();
 	auto dying = std::make_shared<csm::State>("dying", death);
 	auto ifLowHp = std::make_shared<csm::Condition>();
-	sm.addFromAny(ifLowHp, dying);
+	//sm.addFromAny(ifLowHp, dying);
 
 	sm.hardSetState(retreating);
 
@@ -55,12 +56,16 @@ std::shared_ptr<csm::MultipartTask> createRetreat() {
 
 std::shared_ptr<csm::Task> createDissapear() {
 	auto blackboard = std::make_shared<csm::TaskBlackboard>();
-	auto res = std::make_shared<csm::Task>("disappear", blackboard);
+	auto disappear = std::make_shared<csm::Task>("disappearSub", blackboard);
+	std::vector<std::shared_ptr<csm::Task>> subTasks{disappear};
+	auto res = std::make_shared<csm::MultipartTask>("disappear", blackboard, subTasks); // we have only one sub task but whatever
 	return res;
 }
 
 std::shared_ptr<csm::Task> createDeath() {
 	auto blackboard = std::make_shared<csm::TaskBlackboard>();
-	auto res = std::make_shared<csm::Task>("death", blackboard);
+	auto disappear = std::make_shared<csm::Task>("deathSub", blackboard);
+	std::vector<std::shared_ptr<csm::Task>> subTasks{disappear};
+	auto res = std::make_shared<csm::MultipartTask>("death", blackboard, subTasks);
 	return res;
 }

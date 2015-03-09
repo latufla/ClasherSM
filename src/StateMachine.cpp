@@ -26,9 +26,10 @@ namespace csm {
 	void StateMachine::process(long long step) {
 		for(auto i : fromAny) {
 			auto condition = i.first;
-			auto toState = i.second;
-			if(condition->process(step)) {
-				state = toState;
+			std::shared_ptr<TaskBlackboard> blackboard; // waste, from any has no blackboard
+			if(condition->process(blackboard, step)) {
+				state->clear();
+				state = i.second;
 				break;
 			}
 		}
@@ -40,9 +41,10 @@ namespace csm {
 		auto links = state->getLinks();
 		for(auto i : links) {
 			auto condition = i.first;
-			auto toState = i.second;
-			if(condition->process(step)) {
-				state = toState;
+			auto blackboard = state->getBlackboard();
+			if(condition->process(blackboard, step)) {
+				state->clear();
+				state = i.second;
 				findNextState(step);
 				return;
 			}

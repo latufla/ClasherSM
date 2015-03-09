@@ -13,4 +13,8 @@ namespace csm {
 		return true;
 	}
 
+	std::shared_ptr<TaskBlackboard> Task::getBlackboard() const {
+		return blackboard;
+	}
+
 }

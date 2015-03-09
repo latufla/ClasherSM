@@ -17,7 +17,10 @@ namespace csm {
 		virtual void link(std::shared_ptr<Condition> withCondition, std::shared_ptr<State> toState);
 		
 		typedef std::unordered_map<std::shared_ptr<Condition>, std::shared_ptr<State>> ConditionToStateMap;
-		ConditionToStateMap const& getLinks() const { return links; }
+		ConditionToStateMap const& getLinks() const;
+
+		virtual std::shared_ptr<TaskBlackboard> getBlackboard();
+		virtual void clear();
 
 	protected:
 		std::string name;
