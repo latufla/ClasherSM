@@ -1,7 +1,6 @@
 // ClasherSM.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include "src\StateMachine.h"
 #include <memory>
 #include "src\Task.h"
@@ -9,6 +8,7 @@
 #include <vector>
 #include "src\TaskBlackboard.h"
 #include "IfSuccess.h"
+#include <tchar.h>
 
 // TODO: Factory
 std::shared_ptr<csm::MultipartTask> createRetreat();
